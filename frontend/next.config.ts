@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  // Remove 'standalone' — Vercel handles its own output format
   // Increase proxy body size limit so large file uploads don't get rejected
   experimental: {
     serverActions: {
