@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: ai-research-assistant-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_CHAT_MODEL
+        value: llama-3.3-70b-versatile
+      - key: GROQ_VISION_MODEL
+        value: meta-llama/llama-4-scout-17b-16e-instruct
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: LOG_LEVEL
+        value: INFO
+      - key: UPLOAD_DIR
+        value: /app/uploads
+      - key: APP_DB_PATH
+        value: /app/vectorstore/app.db
+    disk:
+      name: data
+      mountPath: /app/vectorstore
+      sizeGB: 1
