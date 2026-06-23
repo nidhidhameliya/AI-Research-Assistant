@@ -13,7 +13,7 @@
 Upload documents, index GitHub repos, ask questions with source citations,  
 compare documents side-by-side, and track quality metrics — all in one place.
 
-[**Live Demo**](#quick-start) · [**API Docs**](http://localhost:8000/docs) · [**Report Bug**](https://github.com/nidhidhameliya/AI-Research-Assistant/issues)
+[**Live Demo**](https://frontend-ten-azure-cfwsepkwdl.vercel.app) · [**API Docs (Live)**](https://ai-research-assistant-backend-production-f800.up.railway.app/docs) · [**Report Bug**](https://github.com/nidhidhameliya/AI-Research-Assistant/issues)
 
 </div>
 
@@ -489,8 +489,8 @@ docker-compose down
 ## 🌐 Production Deployment
 
 For production, the project is configured to run as a decoupled application:
-* **Frontend:** Hosted on **Vercel** (Production & Preview domains).
-* **Backend & Databases:** Hosted on **Railway** (Persistent Docker container).
+* **Frontend:** Hosted on **Vercel** — [Live Demo](https://frontend-ten-azure-cfwsepkwdl.vercel.app)
+* **Backend & Databases:** Hosted on **Railway** — [API Documentation (Swagger UI)](https://ai-research-assistant-backend-production-f800.up.railway.app/docs)
 
 ### 1. Backend (Railway)
 The backend runs in a Docker container using the root `backend/Dockerfile`.
