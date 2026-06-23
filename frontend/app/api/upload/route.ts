@@ -24,7 +24,6 @@ export async function POST(req: NextRequest) {
         // Do NOT set Content-Type — fetch sets it with the correct boundary automatically
       },
       body: formData,
-      // @ts-expect-error – Node.js fetch supports this signal pattern
       signal: AbortSignal.timeout(110_000), // 110s timeout
     });
 
