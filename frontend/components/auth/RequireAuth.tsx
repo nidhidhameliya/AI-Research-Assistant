@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { setAuthSession, getAuthToken } from "@/lib/auth";
 
-const API_BASE = "/api";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "/api";
 const DEMO_EMAIL = "demo@engineer-hub.local";
 const DEMO_PASSWORD = "DemoPassword123!";
 

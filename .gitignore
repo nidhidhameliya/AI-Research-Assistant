@@ -43,3 +43,7 @@ vectorstore/
 
 # Cloned repos (temp)
 tmp/
+
+.vercel
+versel token.txt
+vercel token.txt

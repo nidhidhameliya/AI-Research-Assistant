@@ -4,9 +4,23 @@ from typing import List
 from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
 import structlog
 
+import shutil
+from pathlib import Path
+
 logger = structlog.get_logger()
 
 _embedding_fn = None
+
+
+def _clear_chroma_cache():
+    cache_dir = Path.home() / ".cache" / "chroma"
+    if cache_dir.exists():
+        try:
+            logger.warning("Clearing corrupted Chroma cache directory...", path=str(cache_dir))
+            shutil.rmtree(cache_dir)
+            logger.info("Chroma cache directory cleared successfully.")
+        except Exception as e:
+            logger.error("Failed to clear Chroma cache directory", error=str(e))
 
 
 def _get_embedding_fn() -> DefaultEmbeddingFunction:
@@ -45,7 +59,28 @@ async def embed_texts(texts: List[str], batch_size: int = 100) -> List[List[floa
                 count=len(batch),
             )
         except Exception as e:
-            logger.error("Local embedding failed", error=str(e), batch_start=i)
+            err_str = str(e)
+            logger.error("Local embedding failed", error=err_str, batch_start=i)
+            
+            # Check for corrupted model cache
+            if "INVALID_PROTOBUF" in err_str or "Protobuf parsing failed" in err_str or "onnx" in err_str.lower():
+                logger.warning("Corrupted ONNX model detected. Clearing cache and retrying...")
+                _clear_chroma_cache()
+                global _embedding_fn
+                _embedding_fn = None  # Reset function
+                embedding_fn = _get_embedding_fn()
+                
+                try:
+                    batch_embeddings = await asyncio.to_thread(
+                        embedding_fn,
+                        batch
+                    )
+                    all_embeddings.extend(batch_embeddings)
+                    logger.info("Embedded batch successfully after model redownload.")
+                    continue
+                except Exception as retry_err:
+                    logger.error("Retry after clearing cache failed", error=str(retry_err))
+                    raise retry_err
             raise
 
     return all_embeddings
@@ -62,5 +97,24 @@ async def embed_query(text: str) -> List[float]:
         )
         return embeddings[0]
     except Exception as e:
-        logger.error("Local query embedding failed", error=str(e))
+        err_str = str(e)
+        logger.error("Local query embedding failed", error=err_str)
+        
+        # Check for corrupted model cache
+        if "INVALID_PROTOBUF" in err_str or "Protobuf parsing failed" in err_str or "onnx" in err_str.lower():
+            logger.warning("Corrupted ONNX model detected during query embedding. Clearing cache and retrying...")
+            _clear_chroma_cache()
+            global _embedding_fn
+            _embedding_fn = None
+            embedding_fn = _get_embedding_fn()
+            
+            try:
+                embeddings = await asyncio.to_thread(
+                    embedding_fn,
+                    [text]
+                )
+                return embeddings[0]
+            except Exception as retry_err:
+                logger.error("Retry query embedding after clearing cache failed", error=str(retry_err))
+                raise retry_err
         raise ValueError(f"Failed to generate query embedding: {e}")
