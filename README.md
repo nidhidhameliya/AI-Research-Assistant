@@ -486,6 +486,33 @@ docker-compose down
 
 ---
 
+## 🌐 Production Deployment
+
+For production, the project is configured to run as a decoupled application:
+* **Frontend:** Hosted on **Vercel** (Production & Preview domains).
+* **Backend & Databases:** Hosted on **Railway** (Persistent Docker container).
+
+### 1. Backend (Railway)
+The backend runs in a Docker container using the root `backend/Dockerfile`.
+* **Database Persistence:** Mount a persistent volume at `/app/vectorstore` (1GB is sufficient) to persist your SQLite database (`app.db`) and ChromaDB vector store between restarts.
+* **Environment Variables:**
+  - `GROQ_API_KEY`: Your Groq API Key.
+  - `UPLOAD_DIR`: `/app/uploads`
+  - `APP_DB_PATH`: `/app/vectorstore/app.db`
+  - `CHROMA_PERSIST_DIR`: `/app/vectorstore`
+  - `LOG_LEVEL`: `INFO`
+  - `JWT_SECRET_KEY`: A secure random string.
+* **Auto-Recovery:** The backend contains built-in recovery for corrupted ONNX embedding models. If the `all-MiniLM-L6-v2` model download gets corrupted in the cache, the backend automatically purges the `.cache/chroma` directory and pulls a fresh copy, avoiding upload crashes.
+
+### 2. Frontend (Vercel)
+The frontend is deployed to Vercel and configured to connect directly to the Railway backend.
+* **Environment Variables:**
+  - Set `NEXT_PUBLIC_API_URL` (in Vercel's Environment Variables dashboard) to your Railway backend URL (e.g., `https://your-backend.up.railway.app`).
+* **Direct Client-to-Backend Architecture:**
+  Next.js client-side requests (file uploads, SSE streams, chats) are sent **directly** to the `NEXT_PUBLIC_API_URL` instead of being proxied through Vercel serverless rewrites. This bypasses Vercel's strict **10-second serverless execution timeout**, allowing large document ingestions (which take 20-60 seconds) to complete successfully without throwing `502 Bad Gateway` errors.
+
+---
+
 ## 🔧 Troubleshooting
 
 <details>
