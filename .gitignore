@@ -43,4 +43,7 @@ vectorstore/
 
 # Cloned repos (temp)
 tmp/
-GenAI_Intern_Assessment.pdf
+GenAI_Intern_Assessment.pdfbackend.log
+backend.err
+frontend.log
+frontend.err
