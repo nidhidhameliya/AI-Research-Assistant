@@ -17,12 +17,24 @@ export function MessageList({ messages, isThinking, thinkingMeta }) {
 
   if (messages.length === 0) {
     return (
+<<<<<<< HEAD
       <div className="flex-1 flex flex-col items-center justify-center p-8 text-center h-full animate-fade-in">
         <h1 className="text-[1.35rem] font-semibold mb-1.5 tracking-tight text-foreground">
           AI-Research-Assistant
         </h1>
         <p className="text-[0.875rem] text-muted-foreground mb-10 max-w-sm leading-relaxed">
           Ask about your systems, code, incidents, architecture or knowledge base.
+=======
+      <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
+        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/20 flex items-center justify-center mb-4 shadow-lg shadow-primary/10">
+          <Brain className="w-8 h-8 text-primary" />
+        </div>
+        <h2 className="text-xl font-semibold text-foreground mb-2">
+          AI-Research Assistant
+        </h2>
+        <p className="text-muted-foreground max-w-md text-sm leading-relaxed mb-6 font-medium">
+          Ask questions about your engineering knowledge base — docs, runbooks, incident reports, and code repositories.
+>>>>>>> 9ef3b2057a678c678dfdd46a2744ae1ed3780ccc
         </p>
         <div className="flex items-center justify-center gap-6">
           {EXAMPLE_QUESTIONS.map((q) => (
@@ -102,6 +114,7 @@ function SourceStrip({ sources }) {
   const hasMore = sorted.length > MAX_VISIBLE_SOURCES;
 
   return (
+<<<<<<< HEAD
     <div className="mb-4">
       <div className="flex flex-wrap gap-1.5 items-center">
         {visible.map((source, i) => (
@@ -194,11 +207,54 @@ function MessageBubble({ message }) {
               <div>
                 <p className="font-medium text-sm">Error</p>
                 <p className="text-xs mt-0.5 opacity-80">{message.error}</p>
+=======
+    <div
+      className={cn(
+        "flex gap-3 animate-slide-in",
+        isUser ? "flex-row-reverse" : "flex-row"
+      )}
+    >
+      {/* Avatar */}
+      <div
+        className={cn(
+          "w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 mt-1 shadow-sm",
+          isUser
+            ? "bg-primary/20 border border-primary/30"
+            : "bg-secondary/20 border border-secondary/30"
+        )}
+      >
+        {isUser ? (
+          <User className="w-4 h-4 text-primary" />
+        ) : (
+          <Brain className="w-4 h-4 text-secondary" />
+        )}
+      </div>
+
+      <div className={cn("flex-1 min-w-0 max-w-3xl", isUser && "flex justify-end")}>
+        {/* Bubble */}
+        <div
+          className={cn(
+            "rounded-2xl px-4 py-3 text-sm shadow-sm",
+            isUser
+              ? "bg-primary border border-primary text-primary-foreground max-w-xl"
+              : "glass text-foreground w-full"
+          )}
+        >
+          {isUser ? (
+            <p className="whitespace-pre-wrap">{message.content}</p>
+          ) : message.error ? (
+            <div className="flex items-start gap-2 text-destructive">
+              <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="font-medium">Error</p>
+                <p className="text-xs mt-1 text-destructive/80">{message.error}</p>
+>>>>>>> 9ef3b2057a678c678dfdd46a2744ae1ed3780ccc
               </div>
             </div>
           ) : message.isStreaming ? (
             <StreamingMessage content={message.content} />
           ) : (
+<<<<<<< HEAD
             <MarkdownRenderer content={message.content} />
           )}
         </div>
@@ -210,6 +266,49 @@ function MessageBubble({ message }) {
               {message.response_time_ms.toFixed(0)}ms
             </span>
           </div>
+=======
+            <div className="prose-dark">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {message.content}
+              </ReactMarkdown>
+            </div>
+          )}
+        </div>
+
+        {/* Sources */}
+        {!isUser && message.sources && message.sources.length > 0 && (
+          <div className="mt-3">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+              Sources
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {message.sources.map((source, i) => (
+                <SourceCard key={i} source={source} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Knowledge Cards */}
+        {!isUser && message.knowledge_cards && message.knowledge_cards.length > 0 && (
+          <div className="mt-3">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+              Key Concepts
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {message.knowledge_cards.map((card, i) => (
+                <KnowledgeCard key={i} card={card} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Timing */}
+        {!isUser && message.response_time_ms && !message.isStreaming && (
+          <p className="text-xs text-muted-foreground/60 mt-2 px-1 font-medium">
+            ⚡ {message.response_time_ms.toFixed(0)}ms
+          </p>
+>>>>>>> 9ef3b2057a678c678dfdd46a2744ae1ed3780ccc
         )}
       </div>
     </div>

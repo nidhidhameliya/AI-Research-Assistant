@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """AI-Research Assistant v2 — FastAPI Application Entry Point.
 
 V2 Features:
@@ -6,6 +7,9 @@ V2 Features:
   - Knowledge Studio API (/knowledge)
   - Removed Docker dependency (local-first architecture)
 """
+=======
+"""AI-Research Assistant — FastAPI Application Entry Point."""
+>>>>>>> 9ef3b2057a678c678dfdd46a2744ae1ed3780ccc
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -59,6 +63,7 @@ async def lifespan(app: FastAPI):
     os.makedirs(settings.chroma_persist_dir, exist_ok=True)
     os.makedirs(settings.okf_knowledge_dir, exist_ok=True)
 
+<<<<<<< HEAD
     print(f"""
 +------------------------------------------------------+
 |         AI Research Assistant  v2.0                  |
@@ -70,6 +75,13 @@ async def lifespan(app: FastAPI):
 |  CRAG         : {'enabled' if settings.crag_enabled else 'disabled':<36}|
 +------------------------------------------------------+
     """)
+=======
+    logger.info("AI-Research Assistant starting",
+        model=settings.openai_chat_model,
+        embedding_model=settings.openai_embedding_model,
+        chroma_host=settings.chroma_host,
+    )
+>>>>>>> 9ef3b2057a678c678dfdd46a2744ae1ed3780ccc
 
     # Test ChromaDB connection
     try:
@@ -94,7 +106,11 @@ async def lifespan(app: FastAPI):
 
     yield
 
+<<<<<<< HEAD
     logger.info("AI-Research Assistant v2 shutting down")
+=======
+    logger.info("AI-Research Assistant shutting down")
+>>>>>>> 9ef3b2057a678c678dfdd46a2744ae1ed3780ccc
 
 
 # ── Rate Limiter ──────────────────────────────────────────────────────────────
@@ -107,9 +123,15 @@ from slowapi import _rate_limit_exceeded_handler
 # ── FastAPI App ───────────────────────────────────────────────────────────────
 
 app = FastAPI(
+<<<<<<< HEAD
     title="AI Research Assistant",
     description="V2: Hybrid OKF + Multi-RAG powered AI assistant for engineering teams",
     version="2.0.0",
+=======
+    title="AI-Research Assistant",
+    description="RAG-powered AI assistant for engineering teams",
+    version="1.0.0",
+>>>>>>> 9ef3b2057a678c678dfdd46a2744ae1ed3780ccc
     lifespan=lifespan,
     dependencies=[Depends(verify_api_key)],
 )
@@ -147,10 +169,15 @@ async def health_check():
     """Health check — returns status of all subsystems."""
     status: dict = {
         "status": "ok",
+<<<<<<< HEAD
         "version": "2.0.0",
         "service": "AI Research Assistant",
         "llm_configured": bool(settings.groq_api_key),
         "llm_model": settings.llm_chat_model,
+=======
+        "service": "AI-Research Assistant",
+        "chromadb": chroma_status,
+>>>>>>> 9ef3b2057a678c678dfdd46a2744ae1ed3780ccc
     }
 
     # ChromaDB

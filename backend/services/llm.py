@@ -192,6 +192,7 @@ def _build_context(results: List[RetrievalResult]) -> str:
 
 
 def _build_fallback_answer(question: str, results: List[RetrievalResult]) -> str:
+<<<<<<< HEAD
     """Return a clean, single-source fallback when the model provider is unavailable."""
     ranked = _select_and_rank_results(results)
 
@@ -221,6 +222,29 @@ def _build_fallback_answer(question: str, results: List[RetrievalResult]) -> str
 from langsmith import traceable
 
 @traceable
+=======
+    """Return a grounded offline response when the model provider is unavailable."""
+    if not results:
+        return (
+            "I couldn't reach the model provider, and there isn't enough retrieved context "
+            "to answer this question right now."
+        )
+
+    lines = [
+        "I couldn't reach the model provider, so here's the best grounded answer I can assemble from the retrieved documents:",
+        "",
+    ]
+
+    for result in results[:3]:
+        snippet = result.content.strip().replace("\n", " ")
+        if len(snippet) > 320:
+            snippet = snippet[:317].rstrip() + "..."
+        lines.append(f"- {snippet} [SOURCE: {result.source}]")
+
+    return "\n".join(lines)
+
+
+>>>>>>> 9ef3b2057a678c678dfdd46a2744ae1ed3780ccc
 async def stream_answer(
     question: str,
     results: List[RetrievalResult],
@@ -282,6 +306,7 @@ async def stream_answer(
                     full_response += delta.content
                     yield delta.content
 
+<<<<<<< HEAD
             if session_id:
                 await add_message(session_id, "assistant", full_response)
 
@@ -305,6 +330,11 @@ async def stream_answer(
         session_id=session_id,
     )
     yield _build_fallback_answer(question, results)
+=======
+    except Exception as e:
+        logger.error("LLM streaming failed", error=str(e), question=question, session_id=session_id)
+        yield _build_fallback_answer(question, results)
+>>>>>>> 9ef3b2057a678c678dfdd46a2744ae1ed3780ccc
 
 
 async def get_answer(
@@ -316,4 +346,37 @@ async def get_answer(
     full_response = ""
     async for chunk in stream_answer(question, results, session_id):
         full_response += chunk
+<<<<<<< HEAD
     return full_response
+=======
+    return full_response
+
+
+def parse_knowledge_cards(answer: str) -> list[dict]:
+    """Extract knowledge cards JSON from the answer text."""
+    pattern = r"```knowledge_cards\s*([\s\S]*?)```"
+    match = re.search(pattern, answer)
+    if not match:
+        return []
+    try:
+        cards = json.loads(match.group(1).strip())
+        if not isinstance(cards, list):
+            return []
+        valid_types = {"service", "flow", "concept", "alert"}
+        cleaned = [
+            c for c in cards
+            if isinstance(c, dict)
+            and c.get("title") and c.get("content")
+            and c.get("type") in valid_types
+        ]
+        return cleaned[:4]
+    except json.JSONDecodeError as e:
+        logger.warning("Failed to parse knowledge_cards block", error=str(e))
+    return []
+
+
+def strip_knowledge_cards(answer: str) -> str:
+    """Remove the knowledge_cards JSON block from the answer text."""
+    pattern = r"\n?```knowledge_cards\s*[\s\S]*?```\n?"
+    return re.sub(pattern, "", answer).strip()
+>>>>>>> 9ef3b2057a678c678dfdd46a2744ae1ed3780ccc

@@ -139,6 +139,7 @@ export function MessageInput({ onSend, isLoading, onStop }) {
               disabled={isLoading && false}
             />
 
+<<<<<<< HEAD
             {/* Action buttons */}
             <div className="flex items-center gap-2 flex-shrink-0 mb-1">
               {isLoading ? (
@@ -172,6 +173,13 @@ export function MessageInput({ onSend, isLoading, onStop }) {
           Axiom can make mistakes. Verify critical engineering decisions.
         </p>
       </div>
+=======
+      <p className="text-center text-xs text-muted-foreground/60 mt-2 font-medium">
+        Press <kbd className="px-1 py-0.5 rounded bg-muted text-muted-foreground text-[9px]">Enter</kbd> to send
+        {" · "}
+        <kbd className="px-1 py-0.5 rounded bg-muted text-muted-foreground text-[9px]">Shift+Enter</kbd> for new line
+      </p>
+>>>>>>> 9ef3b2057a678c678dfdd46a2744ae1ed3780ccc
     </div>
   );
 }
