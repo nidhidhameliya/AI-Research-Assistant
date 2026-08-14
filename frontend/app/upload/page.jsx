@@ -11,7 +11,7 @@ export default function UploadPage() {
           Upload Knowledge
         </h1>
         <p className="text-[0.875rem] text-muted-foreground mb-8 text-center">
-          Add documents directly to the Engineer Hub context.
+          Add documents directly to the AI-Research-Assistant context.
         </p>
 
         <div className="w-full mb-12">

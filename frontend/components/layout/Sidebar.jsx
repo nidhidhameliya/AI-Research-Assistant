@@ -97,7 +97,7 @@ function SidebarContent() {
       {/* ── Logo ────────────────────────────────────────────── */}
       <div className="px-4 py-5 pb-4">
         <h1 className="font-semibold text-[0.9375rem] text-foreground tracking-tight">
-          Engineer Hub
+          AI-Research-Assistant
         </h1>
       </div>
 

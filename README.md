@@ -102,8 +102,8 @@ The **OKF (Open Knowledge Format) layer** gives structured docs like runbooks an
 ### 1 — Clone & configure
 
 ```bash
-git clone https://github.com/Het2518/Engineer-Hub-Intelligence-Platform.git
-cd Engineer-Hub-Intelligence-Platform
+git clone https://github.com/nidhidhameliya/AI-Research-Assistant.git
+cd AI-Research-Assistant
 cp .env.example backend/.env
 ```
 
@@ -253,6 +253,6 @@ See `.env.example` for the full list.
 
 Built for engineers who deserve better than Ctrl+F.
 
-[GitHub](https://github.com/Het2518/Engineer-Hub-Intelligence-Platform) · [API Docs](http://localhost:8000/docs) · [Health](http://localhost:8000/health)
+[GitHub](https://github.com/nidhidhameliya/AI-Research-Assistant) · [API Docs](http://localhost:8000/docs) · [Health](http://localhost:8000/health)
 
 </div>

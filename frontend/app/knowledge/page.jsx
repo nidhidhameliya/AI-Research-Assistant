@@ -101,7 +101,7 @@ export default function KnowledgePage() {
                 Knowledge Studio
               </h1>
               <p className="text-[0.875rem] mt-1 text-muted-foreground">
-                Deterministic knowledge base for Engineer Hub.
+                Deterministic knowledge base for AI-Research-Assistant.
               </p>
             </div>
 
@@ -192,7 +192,7 @@ export default function KnowledgePage() {
                 {query || typeFilter !== ALL_FILTER ? "No documents match your filters" : "No documents yet"}
               </p>
               <p className="text-[0.8125rem] text-muted-foreground max-w-sm">
-                Knowledge documents provide deterministic context to the Engineer Hub assistant.
+                Knowledge documents provide deterministic context to the AI-Research-Assistant assistant.
               </p>
               {!query && typeFilter === ALL_FILTER && (
                 <button onClick={() => setShowCreate(true)} className="text-[0.8125rem] font-medium underline underline-offset-4 text-muted-foreground hover:text-foreground mt-2">
@@ -220,7 +220,7 @@ export default function KnowledgePage() {
 
         {/* ── OKF footer badge ─────────────────────────────────── */}
         <div className="flex-shrink-0 px-8 py-4 flex items-center justify-between text-[0.6875rem] font-medium text-muted-foreground border-t border-[hsl(var(--border))]">
-          <span>Engineer Hub Knowledge Studio</span>
+          <span>AI-Research-Assistant Knowledge Studio</span>
           <span>{stats.verified} verified documents</span>
         </div>
       </div>

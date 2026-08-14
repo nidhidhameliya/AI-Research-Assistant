@@ -19,7 +19,7 @@ export function MessageList({ messages, isThinking, thinkingMeta }) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-8 text-center h-full animate-fade-in">
         <h1 className="text-[1.35rem] font-semibold mb-1.5 tracking-tight text-foreground">
-          Engineer Hub
+          AI-Research-Assistant
         </h1>
         <p className="text-[0.875rem] text-muted-foreground mb-10 max-w-sm leading-relaxed">
           Ask about your systems, code, incidents, architecture or knowledge base.
