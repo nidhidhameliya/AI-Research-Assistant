@@ -4,23 +4,9 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { streamChat } from "../lib/streaming";
 
 export function useChat() {
-<<<<<<< HEAD
   // Always start with empty/default state to match SSR — hydrate from
   // sessionStorage in a useEffect to avoid React hydration mismatch.
   const [messages, setMessages] = useState([]);
-=======
-  const [messages, setMessages] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = sessionStorage.getItem("chat_messages");
-      if (saved) {
-        try {
-          return JSON.parse(saved);
-      } catch {}
-      }
-    }
-    return [];
-  });
->>>>>>> 9ef3b2057a678c678dfdd46a2744ae1ed3780ccc
   const [isLoading, setIsLoading] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
   const [thinkingMeta, setThinkingMeta] = useState(null);
