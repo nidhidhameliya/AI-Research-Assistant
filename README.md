@@ -1,6 +1,6 @@
 ﻿﻿<div align="center">
 
-# Axioms
+# AI-Research-Assistant
 
 **Ask anything. Get answers grounded in your own engineering knowledge.**
 
@@ -14,17 +14,17 @@
 
 ---
 
-Axioms is a self-hosted AI research assistant for engineering teams. Upload your runbooks, incident reports, architecture docs, and GitHub repos — then ask questions and get cited, grounded answers in seconds. No hallucinations. No data leaves your machine.
+AI-Research-Assistant is a self-hosted AI research assistant for engineering teams. Upload your runbooks, incident reports, architecture docs, and GitHub repos — then ask questions and get cited, grounded answers in seconds. No hallucinations. No data leaves your machine.
 
 ---
 
-## Why Axioms?
+## Why AI-Research-Assistant?
 
 Engineers spend 25–40% of their day hunting for information scattered across Notion, Confluence, GitHub, Slack, and Google Drive. On-call incidents get worse because the right runbook is buried somewhere no one can find at 3 AM.
 
-Axioms fixes that. One place. Natural language. Instant, cited answers.
+AI-Research-Assistant fixes that. One place. Natural language. Instant, cited answers.
 
-| | Generic AI (ChatGPT, Claude) | Axioms |
+| | Generic AI (ChatGPT, Claude) | AI-Research-Assistant |
 |---|:---:|:---:|
 | Uses your private docs | ✗ | ✓ |
 | Cites source files | ✗ | ✓ |
@@ -101,8 +101,8 @@ The **OKF (Open Knowledge Format) layer** gives structured docs like runbooks an
 ### 1 — Clone & configure
 
 ```bash
-git clone https://github.com/nidhidhameliya/axiom.git
-cd axiom
+git clone https://github.com/nidhidhameliya/AI-Research-Assistant.git
+cd AI-Research-Assistant
 cp .env.example backend/.env
 ```
 
