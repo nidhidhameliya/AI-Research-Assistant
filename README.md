@@ -1,4 +1,4 @@
-﻿<div align="center">
+﻿﻿<div align="center">
 
 # Axioms
 
@@ -50,8 +50,7 @@ BM25 Keyword Search         (deterministic, high-trust docs)
      └──────────┬───────────────┘
                 ▼
         RRF Score Fusion
-        MMR Re-ranking
-        Confidence Filtering   ← drops low-relevance chunks
+        Confidence Filtering   ← selects top-k results
                 │
                 ▼
          Groq LLM (Llama 3.3 70B)
@@ -68,8 +67,8 @@ The **OKF (Open Knowledge Format) layer** gives structured docs like runbooks an
 - 📄 **Document upload** — PDF, DOCX, Markdown, CSV, images (up to 50 MB)
 - 🐙 **GitHub indexer** — index any public or private repository by URL
 - 📚 **Knowledge Studio** — create and manage structured OKF documents in-browser
-- 🔍 **Hybrid search** — vector + BM25 + RRF fusion + MMR diversity re-ranking
-- 📎 **File-in-chat** — attach a file for ephemeral context without indexing it
+- 🔍 **Hybrid search** — vector + BM25 keyword search with RRF fusion
+-  **File-in-chat** — attach a file for ephemeral context without indexing it
 - 🛡️ **Anti-hallucination** — multi-stage confidence filtering before every LLM call
 - 📊 **Admin dashboard** — query counts, response times, document stats
 - ⚡ **No Docker** — runs entirely on your local machine with one command
@@ -80,7 +79,7 @@ The **OKF (Open Knowledge Format) layer** gives structured docs like runbooks an
 
 | Layer | Technology |
 |---|---|
-| **Frontend** | Next.js 16, React 19, Vanilla CSS |
+| **Frontend** | Next.js 16, React 19, Tailwind CSS |
 | **Backend** | FastAPI, Python 3.11+ |
 | **LLM** | Groq API — `llama-3.3-70b-versatile` |
 | **Embeddings** | `all-MiniLM-L6-v2` (runs locally, no API cost) |
