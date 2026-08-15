@@ -101,8 +101,8 @@ The **OKF (Open Knowledge Format) layer** gives structured docs like runbooks an
 ### 1 — Clone & configure
 
 ```bash
-git clone https://github.com/nidhidhameliya/AI-Research-Assistant.git
-cd AI-Research-Assistant
+git clone https://github.com/nidhidhameliya/axiom.git
+cd axiom
 cp .env.example backend/.env
 ```
 
