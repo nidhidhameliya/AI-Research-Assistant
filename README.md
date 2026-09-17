@@ -8,7 +8,7 @@
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org)
 [![Groq](https://img.shields.io/badge/LLM-Groq%20%2F%20Llama%203.3-f55036?style=flat-square)](https://groq.com)
 [![ChromaDB](https://img.shields.io/badge/Vector%20DB-ChromaDB-orange?style=flat-square)](https://www.trychroma.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+
 
 </div>
 
